@@ -25,16 +25,25 @@ canvas.pack()
 # Create the bowling lane
 def create_lane(canvas):
     # TODO 1. Create 5 varibles to store the lane color, top, bottom, left, and right.  Set the lane color to "#D2B48C", the top to 30, the bottom to 775, the left to 200, and the right to 400. Change the variable names in the create_rectangle function to use the variables you created.
+    left = 20
+    right = 40
+    top = 30
+    bottom = 775
+    color = "#D2B48C"
 
-    canvas.create_rectangle(
-        lane_left, lane_top, lane_right, lane_bottom, fill=lane_color, outline=""
-    )
+
+
+    canvas.create_rectangle(   left , top , right, bottom , fill = color   ,)
+
+
 
 
 # Create the bowling pins in a triangular formation
 def create_pins(canvas):
     # TODO 2. Create 2 variables to store the pin color and radius.  Set the pin color to "white" and the pin radius to 10.
 
+    pin_radius = 10
+    pin_color = "white"
     pin_positions = [
         (300, 125),  # Front pin
         (275, 100),
@@ -49,28 +58,34 @@ def create_pins(canvas):
     ]
     # TODO 3. Create an empty list called pins.  Hint: pins = []
     # This Code Creates the Bowling Pins
+    pins = []
     for pos in pin_positions:
         pin = canvas.create_oval(
-            pos[0] - pin_radius,
-            pos[1] - pin_radius,
-            pos[0] + pin_radius,
-            pos[1] + pin_radius,
-            fill=pin_color,
-        )
-        # TODO 4. Append the pin to the pins list in the loop.  Hint: pins.append(pin)
+            pos[0] - 10,
+            pos[1] - 10,
+            pos[0] + 10,
+            pos[1] + 10,
 
+            fill= pin_color
+        )
+        pins.append(pin)
+        # TODO 4. Append the pin to the pins list in the loop.  Hint: pins.append(pin)
     return pins
+
 
 
 # This code Creates the bowling ball at the bottom center of the screen
 def create_ball(canvas):
     # TODO 5. Create 3 variables to store the ball radius, x position, and y position.  Set the ball radius to 25, the x position to 300, and the y position to 750. Change the variable names in the create_oval function to use the variables you created.
+    ball_radius = 25
+    ball_x= 300
+    ball_y= 750
 
     ball = canvas.create_oval(
-        ball_x - ball_radius,
-        ball_y - ball_radius,
-        ball_x + ball_radius,
-        ball_y + ball_radius,
+        300 - 25,
+        750 - 25,
+        300 + 25 ,
+        750 + 25,
         fill="black",
     )
     return ball
@@ -84,26 +99,27 @@ def roll_ball(event, canvas, ball, pins):
         root.update()
         time.sleep(0.05)
     # TODO 6. Call the knock_down_pins function outside of the while loop and pass in the canvas, pins, and ball.  Hint: knock_down_pins(canvas, pins, ball)
-
+    knock_down_pins(canvas, pins, ball)
 
 # This code Knocks down pins and display fireworks
 def knock_down_pins(canvas, pins, ball):
     canvas.delete(ball)
     for pin in pins:
         canvas.delete(pin)
+    display_fireworks(canvas)
     # TODO 7. Call the display_fireworks function outside of the for loop and pass in the canvas.  Hint: display_fireworks(canvas)
 
 
 # This Code Creates star-shaped fireworks
 def create_star(canvas, x, y, size, color):
     # TODO 8. Create an empty list called points.  Hint: points = [] and change the variable name in the create_polygon function to use the points list.
-
+    points  = []
     for i in range(5):
         angle = i * 144  # Star points (144 degrees between each point)
         x_offset = size * math.cos(math.radians(angle))
         y_offset = size * math.sin(math.radians(angle))
         # After Todo 8 Uncomment the below line
-        # points.extend([x + x_offset, y + y_offset])
+        points.extend([x + x_offset, y + y_offset])
     star = canvas.create_polygon(points, fill=color, outline=color)
     return star
 
@@ -122,7 +138,7 @@ def display_fireworks(canvas):
         canvas.delete(firework)
     # TODO 9. Call the display_message function outside of the while loop and pass in the canvas.  Hint: display_message(canvas)
 
-
+    display_message(canvas)
 # Display "HAPPY FATHER'S DAY!!!" message
 def display_message(canvas):
     canvas.create_text(
